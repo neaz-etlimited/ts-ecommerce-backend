@@ -67,9 +67,12 @@ export const searchProduct = async (
         { category: { $regex: searchTerm, $options: "i" } },
         { tags: { $regex: searchTerm, $options: "i" } },
       ],
-    }).exec();
+    })
+      .lean()
+      .exec();
     return products;
   } catch (error) {
-    throw error;
+    console.error("Error searching for products:", error);
+    return [];
   }
 };

@@ -11,8 +11,9 @@ const router = express.Router();
 router
   .route("/")
   .get(productController.getProducts)
-  .post(validateProduct, productController.addProduct)
-  .get(productController.searchProduct);
+  .post(validateProduct, productController.addProduct);
+
+router.get("/search", productController.searchProduct);
 
 router
   .route("/:productId")
