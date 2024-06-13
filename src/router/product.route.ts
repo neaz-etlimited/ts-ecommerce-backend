@@ -11,7 +11,7 @@ const router = express.Router();
 router
   .route("/")
   .get((req, res) => {
-    if (req.query.search) {
+    if (req.query.searchTerm) {
       productController.searchProduct(req, res);
     } else {
       productController.getProducts(req, res);
