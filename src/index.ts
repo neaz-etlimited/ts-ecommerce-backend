@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import productRoutes from "./router/product.route";
 import orderRoutes from "./router/order.route";
+import { swaggerDocs } from "./config/swagger";
+import swaggerUi from "swagger-ui-express";
 
 dotenv.config();
 
@@ -31,13 +33,15 @@ mongoose.connection.on("error", (error) => console.log(error));
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello and welcome to the ecommerce API");
 });
 
-app.use((err: Error, req: Request, res: Response) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send({ message: err.message });
+  res.status(500).json({ message: err.message });
 });
 
 app.listen(PORT, () => {
