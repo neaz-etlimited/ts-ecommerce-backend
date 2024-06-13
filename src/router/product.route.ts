@@ -10,10 +10,14 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(productController.getProducts)
+  .get((req, res) => {
+    if (req.query.search) {
+      productController.searchProduct(req, res);
+    } else {
+      productController.getProducts(req, res);
+    }
+  })
   .post(validateProduct, productController.addProduct);
-
-router.get("/search", productController.searchProduct);
 
 router
   .route("/:productId")

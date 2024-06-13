@@ -7,7 +7,11 @@ export const getProducts = async (
 ): Promise<void> => {
   try {
     const products = await productService.getProducts();
-    res.status(200).json(products);
+    res.status(200).json({
+      success: true,
+      message: "Products fetched successfully",
+      data: products,
+    });
   } catch (error) {
     res.status(500).json({ message: "Error fetching products" });
   }
@@ -20,7 +24,11 @@ export const getProduct = async (
   try {
     const productId: string = req.params.productId;
     const product = await productService.getProduct(productId);
-    res.status(200).json(product);
+    res.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      data: product,
+    });
   } catch (error) {
     res.status(500).json({ message: "Error fetching product" });
   }
@@ -32,7 +40,11 @@ export const addProduct = async (
 ): Promise<void> => {
   try {
     const product = await productService.addProduct(req.body);
-    res.status(201).json(product);
+    res.status(201).json({
+      success: true,
+      message: "New product added successfully",
+      data: product,
+    });
   } catch (error) {
     res.status(500).json({ message: "An error occured adding product" });
   }
@@ -49,7 +61,11 @@ export const updateProduct = async (
       req.body
     );
 
-    res.status(201).json(updatedProductData);
+    res.status(201).json({
+      success: true,
+      message: "Product data successfully updated",
+      data: updatedProductData,
+    });
   } catch (error) {
     res.status(500).json({ message: "An error occured updating product" });
   }
@@ -62,7 +78,11 @@ export const deleteProduct = async (
   try {
     const productId = req.params.productId;
     await productService.deleteProduct(productId);
-    res.status(204).json({ message: "Product deleted successfully" });
+    res.status(204).json({
+      success: true,
+      message: "Product deleted successfully",
+      data: null,
+    });
   } catch (error) {}
 };
 
@@ -79,7 +99,11 @@ export const searchProduct = async (
     }
 
     const result = await productService.searchProduct(searchTerm);
-    res.status(200).json(result);
+    res.status(200).json({
+      success: true,
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+      data: result,
+    });
   } catch (error) {
     res.status(500).json({ message: "Error searching products" });
   }
