@@ -1,6 +1,11 @@
 # Use the official Node.js image.
 FROM node:latest
 
+# Set environment variables.
+ENV NODE_ENV=production
+ENV PORT=8001
+ENV MONGO_URL=mongodb+srv://neaz:etlimited-neaz-pass@etlimited-free.30uqnfp.mongodb.net/ecommerce
+
 # Set the working directory.
 WORKDIR /usr/src/app
 

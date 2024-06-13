@@ -28,11 +28,14 @@ mongoose
 
 mongoose.connection.on("error", (error) => console.log(error));
 
-// Routes
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello and welcome to the ecommerce API");
+});
+
+app.use((err: Error, req: Request, res: Response) => {
   console.error(err.stack);
   res.status(500).send({ message: err.message });
 });
